@@ -441,37 +441,23 @@ function showSimpleStats() {
 // 创建分布图表
 function createDistributionChart() {
     const data = statisticsData.transferDistribution;
-    const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#34495e', '#95a5a6', '#e67e22', '#f1c40f', '#8e44ad'];
-    const total = data.data.reduce((sum, val) => sum + val, 0);
+    const colors = ['#667eea', '#f093fb', '#4facfe', '#11998e', '#fc466b', '#38ef7d', '#764ba2', '#f5576c', '#00f2fe', '#e67e22', '#8e44ad'];
     
-    let html = '<div class="css-pie-chart">';
-    let currentAngle = 0;
-    
-    data.labels.forEach((label, index) => {
-        const percentage = (data.data[index] / total) * 100;
-        const angle = (data.data[index] / total) * 360;
-        
-        html += `
-            <div class="pie-segment" style="
-                --start-angle: ${currentAngle}deg;
-                --end-angle: ${currentAngle + angle}deg;
-                --color: ${colors[index]};
-            "></div>
-        `;
-        currentAngle += angle;
-    });
-    
-    html += '</div>';
+    let html = '<div class="pie-chart-container">';
+    html += '<div class="css-pie-chart"></div>';
     html += '<div class="chart-data-list">';
     data.labels.forEach((label, index) => {
-        html += `
-            <div class="data-item">
-                <span class="data-color" style="background-color: ${colors[index]}"></span>
-                <span class="data-label">${label}</span>
-                <span class="data-value">${data.data[index]}人</span>
-            </div>
-        `;
+        if (index < colors.length) {
+            html += `
+                <div class="data-item">
+                    <span class="data-color" style="background-color: ${colors[index]}"></span>
+                    <span class="data-label">${label}</span>
+                    <span class="data-value">${data.data[index]}人</span>
+                </div>
+            `;
+        }
     });
+    html += '</div>';
     html += '</div>';
     
     return html;
@@ -482,18 +468,20 @@ function createDurationChart() {
     const data = statisticsData.transferDuration;
     const maxValue = Math.max(...data.data);
     
-    let html = '<div class="css-bar-chart">';
+    let html = '<div class="bar-chart-container">';
+    html += '<div class="css-bar-chart">';
     data.labels.forEach((label, index) => {
         const height = (data.data[index] / maxValue) * 100;
         html += `
             <div class="bar-item">
-                <div class="bar" style="height: ${height}%; background-color: #3498db;">
+                <div class="bar" style="height: ${height}%;">
                     <span class="bar-value">${data.data[index]}</span>
                 </div>
                 <div class="bar-label">${label}</div>
             </div>
         `;
     });
+    html += '</div>';
     html += '</div>';
     
     return html;
@@ -504,20 +492,22 @@ function createCompanyChart() {
     const data = statisticsData.companyTransfer;
     const maxValue = Math.max(...data.data);
     
-    let html = '<div class="css-horizontal-bar-chart">';
+    let html = '<div class="horizontal-bar-container">';
+    html += '<div class="css-horizontal-bar-chart">';
     data.labels.forEach((label, index) => {
         const width = (data.data[index] / maxValue) * 100;
         html += `
             <div class="h-bar-item">
                 <div class="h-bar-label">${label}</div>
                 <div class="h-bar-container">
-                    <div class="h-bar" style="width: ${width}%; background-color: #2ecc71;">
+                    <div class="h-bar" style="width: ${width}%;">
                         <span class="h-bar-value">${data.data[index]}</span>
                     </div>
                 </div>
             </div>
         `;
     });
+    html += '</div>';
     html += '</div>';
     
     return html;
@@ -529,13 +519,14 @@ function createTrendChart() {
     const maxValue = Math.max(...data.data);
     const minValue = Math.min(...data.data);
     
-    let html = '<div class="css-line-chart">';
+    let html = '<div class="line-chart-wrapper">';
+    html += '<div class="css-line-chart">';
     html += '<div class="line-chart-container">';
     
     // 创建点和线
     const points = data.data.map((value, index) => {
         const x = (index / (data.data.length - 1)) * 100;
-        const y = 100 - ((value - minValue) / (maxValue - minValue)) * 80;
+        const y = 100 - ((value - minValue) / (maxValue - minValue)) * 70;
         return { x, y, value };
     });
     
@@ -545,19 +536,18 @@ function createTrendChart() {
     points.forEach(point => {
         html += `${point.x},${point.y} `;
     });
-    html += '" fill="none" stroke="#e74c3c" stroke-width="0.5"/>';
+    html += '"/>';
     
     // 绘制点
     points.forEach(point => {
-        html += `<circle cx="${point.x}" cy="${point.y}" r="1" fill="#e74c3c"/>`;
+        html += `<circle cx="${point.x}" cy="${point.y}"/>`;
     });
     html += '</svg>';
     
     // 添加标签
     html += '<div class="line-labels">';
     data.labels.forEach((label, index) => {
-        const x = (index / (data.data.length - 1)) * 100;
-        html += `<div class="line-label" style="left: ${x}%">${label}</div>`;
+        html += `<div class="line-label">${label}</div>`;
     });
     html += '</div>';
     
@@ -568,7 +558,9 @@ function createTrendChart() {
     });
     html += '</div>';
     
-    html += '</div></div>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
     
     return html;
 }
@@ -576,27 +568,27 @@ function createTrendChart() {
 // 初始化CSS图表
 function initializeCSSCharts() {
     // 抽调人员分布图
-    const distributionContainer = document.getElementById('transferDistributionChart');
+    const distributionContainer = document.getElementById('distributionChartContent');
     if (distributionContainer) {
-        distributionContainer.parentElement.innerHTML = createDistributionChart();
+        distributionContainer.innerHTML = createDistributionChart();
     }
     
     // 抽调时长统计图
-    const durationContainer = document.getElementById('transferDurationChart');
+    const durationContainer = document.getElementById('durationChartContent');
     if (durationContainer) {
-        durationContainer.parentElement.innerHTML = createDurationChart();
+        durationContainer.innerHTML = createDurationChart();
     }
     
     // 各子公司抽调人数图
-    const companyContainer = document.getElementById('companyTransferChart');
+    const companyContainer = document.getElementById('companyChartContent');
     if (companyContainer) {
-        companyContainer.parentElement.innerHTML = createCompanyChart();
+        companyContainer.innerHTML = createCompanyChart();
     }
     
     // 月度抽调趋势图
-    const trendContainer = document.getElementById('monthlyTrendChart');
+    const trendContainer = document.getElementById('trendChartContent');
     if (trendContainer) {
-        trendContainer.parentElement.innerHTML = createTrendChart();
+        trendContainer.innerHTML = createTrendChart();
     }
     
     // 更新统计概览数据

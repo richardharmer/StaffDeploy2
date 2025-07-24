@@ -843,75 +843,113 @@ body {
     color: var(--gray-color);
 }
 
-/* 统计报表样式 */
-.stats-container {
+/* 图表网格布局 */
+.charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 30px;
+    margin-top: 20px;
 }
 
-.stats-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-    padding: 20px;
-    margin-bottom: 20px;
+/* 图表卡片样式 */
+.chart-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--shadow-xl);
+    padding: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    min-height: 450px;
 }
 
-.stats-card-header {
+.chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chart-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl), 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.chart-card:hover::before {
+    opacity: 1;
+}
+
+/* 图表头部 */
+.chart-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-}
-
-.stats-card h3 {
-    margin: 0;
-    color: var(--dark-color);
-    font-size: 16px;
-}
-
-.stats-summary {
-    font-size: 12px;
-    color: var(--gray-color);
-}
-
-.stats-total strong {
-    color: var(--primary-color);
-}
-
-.chart-container {
-    height: 300px;
+    margin-bottom: 25px;
     position: relative;
+    z-index: 1;
 }
 
-.chart-legend {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.legend-item {
+.chart-header h3 {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
     display: flex;
     align-items: center;
-    font-size: 12px;
-    color: var(--dark-color);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.legend-color {
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-    margin-right: 5px;
+.chart-header h3 i {
+    margin-right: 10px;
+    font-size: 20px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-/* CSS图表样式 */
+.chart-total {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 图表内容区域 */
+.chart-content {
+    position: relative;
+    z-index: 1;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 饼图样式 */
+.pie-chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: space-between;
+}
+
 .css-pie-chart {
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    margin: 20px auto;
     position: relative;
     background: conic-gradient(
         #667eea 0deg 66deg,
@@ -923,6 +961,7 @@ body {
     );
     box-shadow: var(--shadow-xl);
     border: 3px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
 }
 
 .css-pie-chart::before {
@@ -930,8 +969,8 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     border-radius: 50%;
@@ -940,47 +979,63 @@ body {
 }
 
 .chart-data-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .data-item {
     display: flex;
     align-items: center;
-    font-size: 13px;
-    padding: 8px 12px;
+    font-size: 12px;
+    padding: 6px 10px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    border-radius: 8px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    min-height: 32px;
 }
 
 .data-item:hover {
     background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    transform: translateX(4px);
 }
 
 .data-color {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin-right: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin-right: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
 }
 
 .data-label {
     flex: 1;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .data-value {
     font-weight: 700;
     color: white;
-    font-size: 14px;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+/* 柱状图容器 */
+.bar-chart-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }
 
 /* 柱状图样式 */
@@ -988,11 +1043,11 @@ body {
     display: flex;
     align-items: end;
     justify-content: space-around;
-    height: 220px;
-    padding: 30px 20px 20px;
+    height: 200px;
+    padding: 20px 10px 40px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .bar-item {
@@ -1000,13 +1055,13 @@ body {
     flex-direction: column;
     align-items: center;
     flex: 1;
-    margin: 0 8px;
+    margin: 0 4px;
 }
 
 .bar {
-    width: 45px;
-    min-height: 30px;
-    border-radius: 8px 8px 0 0;
+    width: 35px;
+    min-height: 20px;
+    border-radius: 6px 6px 0 0;
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -1017,38 +1072,49 @@ body {
 }
 
 .bar:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
 }
 
 .bar-value {
     color: white;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
-    margin-top: 8px;
+    margin-top: 6px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .bar-label {
-    margin-top: 15px;
-    font-size: 12px;
+    margin-top: 10px;
+    font-size: 10px;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
     font-weight: 500;
+    line-height: 1.2;
+}
+
+/* 横向柱状图容器 */
+.horizontal-bar-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
 }
 
 /* 横向柱状图样式 */
 .css-horizontal-bar-chart {
-    padding: 25px 20px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
+    max-height: 280px;
+    overflow-y: auto;
 }
 
 .h-bar-item {
     display: flex;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .h-bar-item:last-child {
@@ -1056,30 +1122,31 @@ body {
 }
 
 .h-bar-label {
-    width: 100px;
-    font-size: 13px;
+    width: 80px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.9);
     text-align: right;
-    margin-right: 15px;
+    margin-right: 10px;
     font-weight: 500;
+    line-height: 1.2;
 }
 
 .h-bar-container {
     flex: 1;
-    height: 32px;
+    height: 24px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
 }
 
 .h-bar {
     height: 100%;
-    border-radius: 16px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 12px;
+    padding-right: 8px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     box-shadow: var(--shadow-md);
@@ -1109,24 +1176,32 @@ body {
 
 .h-bar-value {
     color: white;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     position: relative;
     z-index: 1;
 }
 
+/* 折线图容器 */
+.line-chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
 /* 折线图样式 */
 .css-line-chart {
-    padding: 25px 20px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .line-chart-container {
     position: relative;
-    height: 220px;
+    height: 180px;
     background: linear-gradient(to bottom, 
         rgba(252, 70, 107, 0.1) 0%, 
         rgba(63, 94, 251, 0.1) 50%,
@@ -1140,25 +1215,25 @@ body {
     top: 15%;
     left: 5%;
     width: 90%;
-    height: 70%;
+    height: 65%;
 }
 
 .line-svg polyline {
     stroke: #fc466b;
-    stroke-width: 3;
+    stroke-width: 2.5;
     fill: none;
-    filter: drop-shadow(0 0 6px rgba(252, 70, 107, 0.5));
+    filter: drop-shadow(0 0 4px rgba(252, 70, 107, 0.5));
 }
 
 .line-svg circle {
     fill: #fc466b;
-    r: 4;
-    filter: drop-shadow(0 0 4px rgba(252, 70, 107, 0.8));
+    r: 3;
+    filter: drop-shadow(0 0 3px rgba(252, 70, 107, 0.8));
 }
 
 .line-labels {
     position: absolute;
-    bottom: 10px;
+    bottom: 8px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -1166,7 +1241,7 @@ body {
 }
 
 .line-label {
-    font-size: 12px;
+    font-size: 10px;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
     font-weight: 500;
@@ -1181,15 +1256,15 @@ body {
 
 .line-value {
     position: absolute;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 700;
     color: white;
     background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 3px 6px;
+    border-radius: 8px;
     box-shadow: var(--shadow-md);
     transform: translate(-50%, -100%);
-    margin-top: -10px;
+    margin-top: -8px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
