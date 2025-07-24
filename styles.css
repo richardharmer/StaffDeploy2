@@ -843,98 +843,442 @@ body {
     color: var(--gray-color);
 }
 
-/* 图表网格布局 */
-.charts-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-    margin-top: 20px;
+/* 统计图表区域 */
+.stats-charts {
+    margin-top: 30px;
 }
 
-/* 图表卡片样式 */
-.chart-card {
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.stats-box {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
+    border-radius: 20px;
     box-shadow: var(--shadow-xl);
-    padding: 30px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.stats-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl), 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stats-box h3 {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.stats-box h3 i {
+    margin-right: 8px;
+    color: #4facfe;
+}
+
+.stats-data {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* 数据行样式 */
+.data-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-row:last-child {
+    border-bottom: none;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.label {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.value {
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+}
+
+/* 柱状图样式 */
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bar-label {
+    width: 80px;
+    font-size: 12px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.bar-bg {
+    flex: 1;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     overflow: hidden;
-    min-height: 450px;
 }
 
-.chart-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.chart-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl), 0 25px 50px rgba(0, 0, 0, 0.15);
+.bar-value {
+    width: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    text-align: right;
+    flex-shrink: 0;
 }
 
-.chart-card:hover::before {
-    opacity: 1;
+/* 公司图表样式 */
+.company-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* 图表头部 */
-.chart-header {
+.company-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.company-name {
+    width: 70px;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.company-bar {
+    flex: 1;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+.company-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+/* 趋势图表样式 */
+.trend-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trend-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
-    position: relative;
-    z-index: 1;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
-.chart-header h3 {
+.trend-row:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.trend-row.highlight {
+    background: rgba(252, 70, 107, 0.2);
+    border: 1px solid rgba(252, 70, 107, 0.3);
+}
+
+.month {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.trend-value {
+    font-size: 13px;
+    font-weight: 700;
     color: white;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .stats-box {
+        padding: 20px;
+    }
+    
+    .stats-box h3 {
+        font-size: 14px;
+    }
+}
+
+/* 简单饼图样式 */
+.simple-pie-chart {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.pie-item {
     display: flex;
     align-items: center;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.chart-header h3 i {
-    margin-right: 10px;
-    font-size: 20px;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.chart-total {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
+    padding: 8px 12px;
     background: rgba(255, 255, 255, 0.1);
-    padding: 6px 12px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border-left: 4px solid var(--color);
+    transition: all 0.3s ease;
 }
 
-/* 图表内容区域 */
-.chart-content {
+.pie-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
+}
+
+.pie-label {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pie-value {
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* 简单柱状图样式 */
+.simple-bar-chart {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar-group {
+    display: flex;
+    align-items: end;
+    justify-content: space-around;
+    height: 200px;
+    width: 100%;
+    padding: 20px;
+}
+
+.bar-item-simple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.bar-simple {
+    width: 40px;
+    min-height: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
     position: relative;
-    z-index: 1;
-    height: 350px;
+}
+
+.bar-simple:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.bar-value-simple {
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 6px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.bar-label-simple {
+    margin-top: 10px;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* 简单横向图表样式 */
+.simple-horizontal-chart {
+    width: 100%;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.h-bar-simple {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.h-bar-simple:last-child {
+    margin-bottom: 0;
+}
+
+.h-label {
+    width: 80px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.h-bar-container-simple {
+    flex: 1;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.h-bar-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.h-bar-fill:hover {
+    transform: scaleY(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 简单折线图样式 */
+.simple-line-chart {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding: 20px;
+}
+
+.line-chart-area {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(to bottom, 
+        rgba(252, 70, 107, 0.1) 0%, 
+        rgba(63, 94, 251, 0.1) 50%,
+        rgba(252, 70, 107, 0.05) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+}
+
+.line-point {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fc466b;
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+    box-shadow: 0 0 10px rgba(252, 70, 107, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.line-point:hover {
+    transform: translate(-50%, 50%) scale(1.2);
+    box-shadow: 0 0 15px rgba(252, 70, 107, 0.8);
+}
+
+.point-value {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.line-labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.line-labels span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
 }
 
 /* 饼图样式 */

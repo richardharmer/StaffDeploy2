@@ -299,48 +299,163 @@
                     </div>
                 </div>
 
-                <div class="charts-grid">
-                    <!-- 抽调人员分布图 -->
-                    <div class="chart-card">
-                        <div class="chart-header">
+                <!-- 统计图表区域 -->
+                <div class="stats-charts">
+                    <!-- 第一行 -->
+                    <div class="stats-row">
+                        <!-- 抽调人员分布 -->
+                        <div class="stats-box">
                             <h3><i class="fas fa-chart-pie"></i> 抽调人员分布</h3>
-                            <span class="chart-total">总计: 13人次</span>
+                            <div class="stats-data">
+                                <div class="data-row">
+                                    <span class="dot" style="background: #667eea;"></span>
+                                    <span class="label">研发部</span>
+                                    <span class="value">2人</span>
+                                </div>
+                                <div class="data-row">
+                                    <span class="dot" style="background: #f093fb;"></span>
+                                    <span class="label">市场部</span>
+                                    <span class="value">2人</span>
+                                </div>
+                                <div class="data-row">
+                                    <span class="dot" style="background: #4facfe;"></span>
+                                    <span class="label">财务部</span>
+                                    <span class="value">1人</span>
+                                </div>
+                                <div class="data-row">
+                                    <span class="dot" style="background: #11998e;"></span>
+                                    <span class="label">人力资源部</span>
+                                    <span class="value">1人</span>
+                                </div>
+                                <div class="data-row">
+                                    <span class="dot" style="background: #fc466b;"></span>
+                                    <span class="label">技术部</span>
+                                    <span class="value">1人</span>
+                                </div>
+                                <div class="data-row">
+                                    <span class="dot" style="background: #38ef7d;"></span>
+                                    <span class="label">法务部</span>
+                                    <span class="value">1人</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="chart-content" id="distributionChartContent">
-                            <!-- 动态生成 -->
-                        </div>
-                    </div>
 
-                    <!-- 抽调时长统计图 -->
-                    <div class="chart-card">
-                        <div class="chart-header">
+                        <!-- 抽调时长统计 -->
+                        <div class="stats-box">
                             <h3><i class="fas fa-chart-bar"></i> 抽调时长统计</h3>
-                            <span class="chart-total">最长: 90天</span>
-                        </div>
-                        <div class="chart-content" id="durationChartContent">
-                            <!-- 动态生成 -->
+                            <div class="stats-data">
+                                <div class="bar-chart">
+                                    <div class="bar-row">
+                                        <span class="bar-label">1-2个月</span>
+                                        <div class="bar-bg">
+                                            <div class="bar-fill" style="width: 75%;"></div>
+                                        </div>
+                                        <span class="bar-value">9人</span>
+                                    </div>
+                                    <div class="bar-row">
+                                        <span class="bar-label">2-3个月</span>
+                                        <div class="bar-bg">
+                                            <div class="bar-fill" style="width: 33%;"></div>
+                                        </div>
+                                        <span class="bar-value">4人</span>
+                                    </div>
+                                    <div class="bar-row">
+                                        <span class="bar-label">3-4个月</span>
+                                        <div class="bar-bg">
+                                            <div class="bar-fill" style="width: 17%;"></div>
+                                        </div>
+                                        <span class="bar-value">2人</span>
+                                    </div>
+                                    <div class="bar-row">
+                                        <span class="bar-label">4个月以上</span>
+                                        <div class="bar-bg">
+                                            <div class="bar-fill" style="width: 0%;"></div>
+                                        </div>
+                                        <span class="bar-value">0人</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- 各子公司抽调人数图 -->
-                    <div class="chart-card">
-                        <div class="chart-header">
+                    <!-- 第二行 -->
+                    <div class="stats-row">
+                        <!-- 各子公司抽调人数 -->
+                        <div class="stats-box">
                             <h3><i class="fas fa-building"></i> 各子公司抽调人数</h3>
-                            <span class="chart-total">最多: 文达科技 2人</span>
+                            <div class="stats-data">
+                                <div class="company-chart">
+                                    <div class="company-row">
+                                        <span class="company-name">文达科技</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 100%;">2</div>
+                                        </div>
+                                    </div>
+                                    <div class="company-row">
+                                        <span class="company-name">文达贸易</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 100%;">2</div>
+                                        </div>
+                                    </div>
+                                    <div class="company-row">
+                                        <span class="company-name">文达投资</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 100%;">2</div>
+                                        </div>
+                                    </div>
+                                    <div class="company-row">
+                                        <span class="company-name">文达制造</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 100%;">2</div>
+                                        </div>
+                                    </div>
+                                    <div class="company-row">
+                                        <span class="company-name">文达物流</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 100%;">2</div>
+                                        </div>
+                                    </div>
+                                    <div class="company-row">
+                                        <span class="company-name">文达新能源</span>
+                                        <div class="company-bar">
+                                            <div class="company-fill" style="width: 50%;">1</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="chart-content" id="companyChartContent">
-                            <!-- 动态生成 -->
-                        </div>
-                    </div>
 
-                    <!-- 月度抽调趋势图 -->
-                    <div class="chart-card">
-                        <div class="chart-header">
+                        <!-- 月度抽调趋势 -->
+                        <div class="stats-box">
                             <h3><i class="fas fa-chart-line"></i> 月度抽调趋势</h3>
-                            <span class="chart-total">增长率: +33%</span>
-                        </div>
-                        <div class="chart-content" id="trendChartContent">
-                            <!-- 动态生成 -->
+                            <div class="stats-data">
+                                <div class="trend-chart">
+                                    <div class="trend-row">
+                                        <span class="month">8月</span>
+                                        <span class="trend-value">3人</span>
+                                    </div>
+                                    <div class="trend-row">
+                                        <span class="month">9月</span>
+                                        <span class="trend-value">4人</span>
+                                    </div>
+                                    <div class="trend-row">
+                                        <span class="month">10月</span>
+                                        <span class="trend-value">5人</span>
+                                    </div>
+                                    <div class="trend-row">
+                                        <span class="month">11月</span>
+                                        <span class="trend-value">7人</span>
+                                    </div>
+                                    <div class="trend-row">
+                                        <span class="month">12月</span>
+                                        <span class="trend-value">9人</span>
+                                    </div>
+                                    <div class="trend-row highlight">
+                                        <span class="month">1月</span>
+                                        <span class="trend-value">12人</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
