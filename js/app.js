@@ -27,15 +27,41 @@ function initializeApp() {
 // 设置导航
 function setupNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.content-section');
+    const pageTitle = document.getElementById('pageTitle');
+    
+    const titles = {
+        'dashboard': '仪表盘',
+        'personnel': '人员管理', 
+        'transfer': '抽调管理',
+        'alerts': '提醒中心',
+        'statistics': '统计报表'
+    };
+    
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const section = this.getAttribute('data-section');
-            showSection(section);
+            const targetSection = this.getAttribute('data-section');
             
             // 更新导航状态
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
+            navLinks.forEach(l => {
+                l.classList.remove('active', 'bg-white/20', 'text-white');
+                l.classList.add('text-white/80');
+            });
+            this.classList.remove('text-white/80');
+            this.classList.add('active', 'bg-white/20', 'text-white');
+            
+            // 更新页面内容
+            sections.forEach(section => section.classList.add('hidden'));
+            document.getElementById(targetSection).classList.remove('hidden');
+            
+            // 更新页面标题
+            if (pageTitle) {
+                pageTitle.textContent = titles[targetSection] || '仪表盘';
+            }
+            
+            // 执行特定页面的初始化
+            showSection(targetSection);
         });
     });
 }
@@ -129,20 +155,22 @@ function renderPersonnelTable() {
     const tbody = document.getElementById('personnelTableBody');
     
     tbody.innerHTML = personnelData.map(person => `
-        <tr>
-            <td>${person.id}</td>
-            <td>${person.name}</td>
-            <td>${person.department}</td>
-            <td>${person.position}</td>
-            <td>${person.company}</td>
-            <td>${person.hireDate}</td>
-            <td><span class="status-badge status-active">${person.status}</span></td>
-            <td>
-                <div class="action-buttons">
-                    <button class="btn-icon btn-view" onclick="viewPersonnel('${person.id}')" title="查看详情">
+        <tr class="hover:bg-white/5 transition-colors">
+            <td class="px-6 py-4 text-white/90">${person.id}</td>
+            <td class="px-6 py-4 text-white font-medium">${person.name}</td>
+            <td class="px-6 py-4 text-white/90">${person.department}</td>
+            <td class="px-6 py-4 text-white/90">${person.position}</td>
+            <td class="px-6 py-4 text-white/90">${person.company}</td>
+            <td class="px-6 py-4 text-white/90">${person.hireDate}</td>
+            <td class="px-6 py-4">
+                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">${person.status}</span>
+            </td>
+            <td class="px-6 py-4">
+                <div class="flex space-x-2">
+                    <button class="p-2 text-blue-400 hover:bg-blue-500/20 rounded-lg transition-colors" onclick="viewPersonnel('${person.id}')" title="查看详情">
                         <i class="fas fa-eye"></i>
                     </button>
-                    <button class="btn-icon btn-edit" onclick="editPersonnel('${person.id}')" title="编辑">
+                    <button class="p-2 text-yellow-400 hover:bg-yellow-500/20 rounded-lg transition-colors" onclick="editPersonnel('${person.id}')" title="编辑">
                         <i class="fas fa-edit"></i>
                     </button>
                 </div>

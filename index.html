@@ -4,534 +4,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文达股份集团人事管理系统</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'glass': 'rgba(255, 255, 255, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <!-- 头部导航 -->
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-building"></i>
-                <h1>文达股份集团人事管理系统</h1>
+<body class="gradient-bg min-h-screen">
+    <div class="flex h-screen">
+        <!-- 侧边栏 -->
+        <nav class="w-64 glass">
+            <!-- Logo -->
+            <div class="p-6 border-b border-white/20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-building text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-bold">文达集团</h1>
+                        <p class="text-white/70 text-sm">人事管理系统</p>
+                    </div>
+                </div>
             </div>
-            <div class="user-info">
-                <span>总部人事部门</span>
-                <i class="fas fa-user-circle"></i>
-            </div>
-        </header>
 
-        <!-- 导航菜单 -->
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
-                    <i class="fas fa-tachometer-alt"></i> 仪表盘
-                </a></li>
-                <li><a href="#personnel" class="nav-link" data-section="personnel">
-                    <i class="fas fa-users"></i> 人员管理
-                </a></li>
-                <li><a href="#transfer" class="nav-link" data-section="transfer">
-                    <i class="fas fa-exchange-alt"></i> 抽调管理
-                </a></li>
-                <li><a href="#alerts" class="nav-link" data-section="alerts">
-                    <i class="fas fa-bell"></i> 提醒中心
-                </a></li>
-                <li><a href="#statistics" class="nav-link" data-section="statistics">
-                    <i class="fas fa-chart-bar"></i> 统计报表
-                </a></li>
-            </ul>
+            <!-- 导航菜单 -->
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="nav-link active flex items-center space-x-3 px-4 py-3 text-white bg-white/20 rounded-lg" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>仪表盘</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all" data-section="personnel">
+                            <i class="fas fa-users"></i>
+                            <span>人员管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all" data-section="transfer">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>抽调管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all" data-section="alerts">
+                            <i class="fas fa-bell"></i>
+                            <span>提醒中心</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link flex items-center space-x-3 px-4 py-3 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all" data-section="statistics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>统计报表</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
 
         <!-- 主要内容区域 -->
-        <main class="main-content">
-            <!-- 仪表盘 -->
-            <section id="dashboard" class="content-section active">
-                <h2>仪表盘概览</h2>
-                <div class="dashboard-cards">
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>总员工数</h3>
-                            <p class="card-number" id="totalEmployees">0</p>
-                        </div>
+        <div class="flex-1 flex flex-col">
+            <!-- 头部 -->
+            <header class="glass border-b border-white/20 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white" id="pageTitle">仪表盘</h2>
+                        <p class="text-white/70 text-sm">欢迎使用文达股份集团人事管理系统</p>
                     </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-exchange-alt"></i>
+                    <div class="flex items-center space-x-4">
+                        <div class="glass px-4 py-2 rounded-full">
+                            <span class="text-white/90 text-sm">总部人事部门</span>
                         </div>
-                        <div class="card-content">
-                            <h3>当前抽调人数</h3>
-                            <p class="card-number" id="currentTransfers">0</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon alert">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>即将到期提醒</h3>
-                            <p class="card-number alert" id="upcomingAlerts">0</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="card-content">
-                            <h3>子公司数量</h3>
-                            <p class="card-number" id="subsidiaries">8</p>
+                        <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
                         </div>
                     </div>
                 </div>
+            </header>
 
-                <div class="recent-activities">
-                    <h3>最近活动</h3>
-                    <div class="activity-list" id="recentActivities">
-                        <!-- 动态生成 -->
-                    </div>
-                </div>
-            </section>       
-     <!-- 人员管理 -->
-            <section id="personnel" class="content-section">
-                <h2>人员管理</h2>
-                <div class="section-controls">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="searchPersonnel" placeholder="搜索员工姓名或工号...">
-                    </div>
-                    <div class="filter-controls">
-                        <select id="companyFilter">
-                            <option value="">所有公司</option>
-                            <option value="总部">总部</option>
-                            <option value="文达科技">文达科技</option>
-                            <option value="文达制造">文达制造</option>
-                            <option value="文达贸易">文达贸易</option>
-                            <option value="文达投资">文达投资</option>
-                            <option value="文达物流">文达物流</option>
-                            <option value="文达地产">文达地产</option>
-                            <option value="文达金融">文达金融</option>
-                            <option value="文达新能源">文达新能源</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <table class="data-table" id="personnelTable">
-                        <thead>
-                            <tr>
-                                <th>工号</th>
-                                <th>姓名</th>
-                                <th>部门</th>
-                                <th>职位</th>
-                                <th>所属公司</th>
-                                <th>入职时间</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="personnelTableBody">
-                            <!-- 动态生成 -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+            <!-- 主要内容 -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- 仪表盘 -->
+                <section id="dashboard" class="content-section active">
+                    <!-- 统计卡片 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white/70 text-sm">总员工数</p>
+                                    <p class="text-2xl font-bold text-white mt-1" id="totalEmployees">15</p>
+                                </div>
+                                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-users text-white"></i>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- 抽调管理 -->
-            <section id="transfer" class="content-section">
-                <h2>抽调管理</h2>
-                
-                <!-- 抽调统计卡片 -->
-                <div class="transfer-stats-cards">
-                    <div class="stats-card">
-                        <div class="stats-icon">
-                            <i class="fas fa-users"></i>
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white/70 text-sm">当前抽调人数</p>
+                                    <p class="text-2xl font-bold text-white mt-1" id="currentTransfers">13</p>
+                                </div>
+                                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-exchange-alt text-white"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stats-content">
-                            <h3>总抽调人数</h3>
-                            <p class="stats-number" id="totalTransfers">0</p>
-                        </div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-icon active">
-                            <i class="fas fa-play-circle"></i>
-                        </div>
-                        <div class="stats-content">
-                            <h3>进行中</h3>
-                            <p class="stats-number" id="activeTransfers">0</p>
-                        </div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-icon warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <div class="stats-content">
-                            <h3>即将到期</h3>
-                            <p class="stats-number" id="upcomingTransfers">0</p>
-                        </div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-icon urgent">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <div class="stats-content">
-                            <h3>紧急提醒</h3>
-                            <p class="stats-number" id="urgentTransfers">0</p>
-                        </div>
-                    </div>
-                    <div class="stats-card">
-                        <div class="stats-icon completed">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stats-content">
-                            <h3>已完成</h3>
-                            <p class="stats-number" id="completedTransfers">0</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="section-controls">
-                    <button class="btn btn-primary" onclick="showAddTransferModal()">
-                        <i class="fas fa-plus"></i> 新增抽调
-                    </button>
-                    <div class="filter-controls">
-                        <select id="transferStatusFilter">
-                            <option value="">所有状态</option>
-                            <option value="进行中">进行中</option>
-                            <option value="即将到期">即将到期</option>
-                            <option value="已结束">已结束</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <table class="data-table" id="transferTable">
-                        <thead>
-                            <tr>
-                                <th>抽调编号</th>
-                                <th>员工姓名</th>
-                                <th>原公司</th>
-                                <th>抽调部门</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
-                                <th>剩余天数</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transferTableBody">
-                            <!-- 动态生成 -->
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white/70 text-sm">即将到期提醒</p>
+                                    <p class="text-2xl font-bold text-red-400 mt-1" id="upcomingAlerts">8</p>
+                                </div>
+                                <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- 提醒中心 -->
-            <section id="alerts" class="content-section">
-                <h2>提醒中心</h2>
-                <div class="alert-summary">
-                    <div class="alert-card urgent">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div>
-                            <h4>紧急提醒</h4>
-                            <p id="urgentCount">0 条</p>
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-white/70 text-sm">子公司数量</p>
+                                    <p class="text-2xl font-bold text-white mt-1">8</p>
+                                </div>
+                                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-building text-white"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="alert-card warning">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <div>
-                            <h4>15天内到期</h4>
-                            <p id="warningCount">0 条</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="alerts-list" id="alertsList">
-                    <!-- 动态生成 -->
-                </div>
-            </section>       
-     <!-- 统计报表 -->
-            <section id="statistics" class="content-section">
-                <h2>统计报表</h2>
-                
-                <!-- 统计概览卡片 -->
-                <div class="statistics-overview">
-                    <div class="overview-card">
-                        <div class="overview-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="overview-content">
-                            <h4>总抽调次数</h4>
-                            <p class="overview-number" id="totalTransferCount">15</p>
-                            <span class="overview-desc">历史累计</span>
-                        </div>
-                    </div>
-                    <div class="overview-card">
-                        <div class="overview-icon active">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="overview-content">
-                            <h4>平均抽调时长</h4>
-                            <p class="overview-number" id="avgTransferDuration">58</p>
-                            <span class="overview-desc">天</span>
-                        </div>
-                    </div>
-                    <div class="overview-card">
-                        <div class="overview-icon warning">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="overview-content">
-                            <h4>参与公司数</h4>
-                            <p class="overview-number" id="participatingCompanies">8</p>
-                            <span class="overview-desc">个子公司</span>
-                        </div>
-                    </div>
-                    <div class="overview-card">
-                        <div class="overview-icon success">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="overview-content">
-                            <h4>本月新增</h4>
-                            <p class="overview-number" id="monthlyNewTransfers">5</p>
-                            <span class="overview-desc">次抽调</span>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- 统计图表区域 -->
-                <div class="stats-charts">
-                    <!-- 第一行 -->
-                    <div class="stats-row">
+                    <!-- 最近活动 -->
+                    <div class="glass rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-6">最近活动</h3>
+                        <div class="space-y-4" id="recentActivities">
+                            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-white font-medium">张明 抽调将在3天后结束 - 紧急提醒</p>
+                                    <p class="text-white/60 text-sm">刚刚</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-white font-medium">谢强 抽调将在2天后结束 - 紧急提醒</p>
+                                    <p class="text-white/60 text-sm">10分钟前</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg">
+                                <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-white font-medium">李华 抽调将在5天后结束</p>
+                                    <p class="text-white/60 text-sm">1小时前</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 人员管理 -->
+                <section id="personnel" class="content-section">
+                    <div class="glass rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-6">人员管理</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-white/20">
+                                        <th class="text-left py-3 text-white/80">工号</th>
+                                        <th class="text-left py-3 text-white/80">姓名</th>
+                                        <th class="text-left py-3 text-white/80">部门</th>
+                                        <th class="text-left py-3 text-white/80">职位</th>
+                                        <th class="text-left py-3 text-white/80">公司</th>
+                                        <th class="text-left py-3 text-white/80">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="personnelTableBody">
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-3 text-white/90">WD001</td>
+                                        <td class="py-3 text-white">张明</td>
+                                        <td class="py-3 text-white/90">研发部</td>
+                                        <td class="py-3 text-white/90">高级工程师</td>
+                                        <td class="py-3 text-white/90">文达科技</td>
+                                        <td class="py-3">
+                                            <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded text-sm">在职</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 抽调管理 -->
+                <section id="transfer" class="content-section">
+                    <div class="glass rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-6">抽调管理</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-white/20">
+                                        <th class="text-left py-3 text-white/80">编号</th>
+                                        <th class="text-left py-3 text-white/80">姓名</th>
+                                        <th class="text-left py-3 text-white/80">原公司</th>
+                                        <th class="text-left py-3 text-white/80">抽调部门</th>
+                                        <th class="text-left py-3 text-white/80">剩余天数</th>
+                                        <th class="text-left py-3 text-white/80">状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transferTableBody">
+                                    <tr class="border-b border-white/10">
+                                        <td class="py-3 text-white/90">T001</td>
+                                        <td class="py-3 text-white">张明</td>
+                                        <td class="py-3 text-white/90">文达科技</td>
+                                        <td class="py-3 text-white/90">研发部</td>
+                                        <td class="py-3 text-red-400 font-bold">3天</td>
+                                        <td class="py-3">
+                                            <span class="px-2 py-1 bg-red-500/20 text-red-400 rounded text-sm">紧急</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 提醒中心 -->
+                <section id="alerts" class="content-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold">紧急提醒</h3>
+                                    <p class="text-red-400 text-xl font-bold">3 条</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass rounded-xl p-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-white font-bold">15天内到期</h3>
+                                    <p class="text-yellow-400 text-xl font-bold">8 条</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-white mb-6">提醒详情</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                                <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-exclamation-circle text-red-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-white font-medium">张明 抽调将在3天后结束</p>
+                                    <p class="text-white/60 text-sm">来自文达科技，抽调到研发部</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 统计报表 -->
+                <section id="statistics" class="content-section">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <!-- 抽调人员分布 -->
-                        <div class="stats-box">
-                            <h3><i class="fas fa-chart-pie"></i> 抽调人员分布</h3>
-                            <div class="stats-data">
-                                <div class="data-row">
-                                    <span class="dot" style="background: #667eea;"></span>
-                                    <span class="label">研发部</span>
-                                    <span class="value">2人</span>
+                        <div class="glass rounded-xl p-6">
+                            <h3 class="text-xl font-bold text-white mb-6">抽调人员分布</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-4 h-4 bg-blue-500 rounded-full"></div>
+                                        <span class="text-white/90">研发部</span>
+                                    </div>
+                                    <span class="text-white font-bold">2人</span>
                                 </div>
-                                <div class="data-row">
-                                    <span class="dot" style="background: #f093fb;"></span>
-                                    <span class="label">市场部</span>
-                                    <span class="value">2人</span>
+                                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-4 h-4 bg-purple-500 rounded-full"></div>
+                                        <span class="text-white/90">市场部</span>
+                                    </div>
+                                    <span class="text-white font-bold">2人</span>
                                 </div>
-                                <div class="data-row">
-                                    <span class="dot" style="background: #4facfe;"></span>
-                                    <span class="label">财务部</span>
-                                    <span class="value">1人</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="dot" style="background: #11998e;"></span>
-                                    <span class="label">人力资源部</span>
-                                    <span class="value">1人</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="dot" style="background: #fc466b;"></span>
-                                    <span class="label">技术部</span>
-                                    <span class="value">1人</span>
-                                </div>
-                                <div class="data-row">
-                                    <span class="dot" style="background: #38ef7d;"></span>
-                                    <span class="label">法务部</span>
-                                    <span class="value">1人</span>
+                                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-4 h-4 bg-green-500 rounded-full"></div>
+                                        <span class="text-white/90">财务部</span>
+                                    </div>
+                                    <span class="text-white font-bold">1人</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 抽调时长统计 -->
-                        <div class="stats-box">
-                            <h3><i class="fas fa-chart-bar"></i> 抽调时长统计</h3>
-                            <div class="stats-data">
-                                <div class="bar-chart">
-                                    <div class="bar-row">
-                                        <span class="bar-label">1-2个月</span>
-                                        <div class="bar-bg">
-                                            <div class="bar-fill" style="width: 75%;"></div>
-                                        </div>
-                                        <span class="bar-value">9人</span>
+                        <div class="glass rounded-xl p-6">
+                            <h3 class="text-xl font-bold text-white mb-6">抽调时长统计</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4">
+                                    <span class="text-white/90 w-20 text-sm">1-2个月</span>
+                                    <div class="flex-1 bg-white/10 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 75%"></div>
                                     </div>
-                                    <div class="bar-row">
-                                        <span class="bar-label">2-3个月</span>
-                                        <div class="bar-bg">
-                                            <div class="bar-fill" style="width: 33%;"></div>
-                                        </div>
-                                        <span class="bar-value">4人</span>
+                                    <span class="text-white font-bold text-sm">9人</span>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <span class="text-white/90 w-20 text-sm">2-3个月</span>
+                                    <div class="flex-1 bg-white/10 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 33%"></div>
                                     </div>
-                                    <div class="bar-row">
-                                        <span class="bar-label">3-4个月</span>
-                                        <div class="bar-bg">
-                                            <div class="bar-fill" style="width: 17%;"></div>
-                                        </div>
-                                        <span class="bar-value">2人</span>
+                                    <span class="text-white font-bold text-sm">4人</span>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <span class="text-white/90 w-20 text-sm">3-4个月</span>
+                                    <div class="flex-1 bg-white/10 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 17%"></div>
                                     </div>
-                                    <div class="bar-row">
-                                        <span class="bar-label">4个月以上</span>
-                                        <div class="bar-bg">
-                                            <div class="bar-fill" style="width: 0%;"></div>
-                                        </div>
-                                        <span class="bar-value">0人</span>
-                                    </div>
+                                    <span class="text-white font-bold text-sm">2人</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 第二行 -->
-                    <div class="stats-row">
-                        <!-- 各子公司抽调人数 -->
-                        <div class="stats-box">
-                            <h3><i class="fas fa-building"></i> 各子公司抽调人数</h3>
-                            <div class="stats-data">
-                                <div class="company-chart">
-                                    <div class="company-row">
-                                        <span class="company-name">文达科技</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 100%;">2</div>
-                                        </div>
-                                    </div>
-                                    <div class="company-row">
-                                        <span class="company-name">文达贸易</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 100%;">2</div>
-                                        </div>
-                                    </div>
-                                    <div class="company-row">
-                                        <span class="company-name">文达投资</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 100%;">2</div>
-                                        </div>
-                                    </div>
-                                    <div class="company-row">
-                                        <span class="company-name">文达制造</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 100%;">2</div>
-                                        </div>
-                                    </div>
-                                    <div class="company-row">
-                                        <span class="company-name">文达物流</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 100%;">2</div>
-                                        </div>
-                                    </div>
-                                    <div class="company-row">
-                                        <span class="company-name">文达新能源</span>
-                                        <div class="company-bar">
-                                            <div class="company-fill" style="width: 50%;">1</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 月度抽调趋势 -->
-                        <div class="stats-box">
-                            <h3><i class="fas fa-chart-line"></i> 月度抽调趋势</h3>
-                            <div class="stats-data">
-                                <div class="trend-chart">
-                                    <div class="trend-row">
-                                        <span class="month">8月</span>
-                                        <span class="trend-value">3人</span>
-                                    </div>
-                                    <div class="trend-row">
-                                        <span class="month">9月</span>
-                                        <span class="trend-value">4人</span>
-                                    </div>
-                                    <div class="trend-row">
-                                        <span class="month">10月</span>
-                                        <span class="trend-value">5人</span>
-                                    </div>
-                                    <div class="trend-row">
-                                        <span class="month">11月</span>
-                                        <span class="trend-value">7人</span>
-                                    </div>
-                                    <div class="trend-row">
-                                        <span class="month">12月</span>
-                                        <span class="trend-value">9人</span>
-                                    </div>
-                                    <div class="trend-row highlight">
-                                        <span class="month">1月</span>
-                                        <span class="trend-value">12人</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- 模态框 - 抽调详情 -->
-    <div class="modal" id="transferDetailModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>抽调详情</h3>
-                <span class="close-modal" onclick="closeModal('transferDetailModal')">&times;</span>
-            </div>
-            <div class="modal-body" id="transferDetailContent">
-                <!-- 动态生成 -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('transferDetailModal')">关闭</button>
-                <button class="btn btn-primary" onclick="extendTransfer()">延长抽调</button>
-            </div>
+                </section>
+            </main>
         </div>
     </div>
 
-    <!-- 模态框 - 新增抽调 -->
-    <div class="modal" id="addTransferModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>新增抽调</h3>
-                <span class="close-modal" onclick="closeModal('addTransferModal')">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="addTransferForm">
-                    <div class="form-group">
-                        <label for="employeeSelect">选择员工</label>
-                        <select id="employeeSelect" required>
-                            <option value="">-- 请选择员工 --</option>
-                            <!-- 动态生成 -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="departmentSelect">抽调部门</label>
-                        <select id="departmentSelect" required>
-                            <option value="">-- 请选择部门 --</option>
-                            <option value="研发部">研发部</option>
-                            <option value="市场部">市场部</option>
-                            <option value="财务部">财务部</option>
-                            <option value="人力资源部">人力资源部</option>
-                            <option value="行政部">行政部</option>
-                            <option value="法务部">法务部</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="startDate">开始日期</label>
-                        <input type="date" id="startDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">结束日期</label>
-                        <input type="date" id="endDate" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="transferReason">抽调原因</label>
-                        <textarea id="transferReason" rows="3" required></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('addTransferModal')">取消</button>
-                <button class="btn btn-primary" onclick="addNewTransfer()">确认添加</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 引入Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script>
+        // 简单的导航切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            const pageTitle = document.getElementById('pageTitle');
+            
+            const titles = {
+                'dashboard': '仪表盘',
+                'personnel': '人员管理',
+                'transfer': '抽调管理',
+                'alerts': '提醒中心',
+                'statistics': '统计报表'
+            };
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetSection = this.getAttribute('data-section');
+                    
+                    // 更新导航状态
+                    navLinks.forEach(l => {
+                        l.classList.remove('active', 'bg-white/20', 'text-white');
+                        l.classList.add('text-white/80');
+                    });
+                    this.classList.remove('text-white/80');
+                    this.classList.add('active', 'bg-white/20', 'text-white');
+                    
+                    // 更新页面内容
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(targetSection).classList.add('active');
+                    
+                    // 更新页面标题
+                    pageTitle.textContent = titles[targetSection] || '仪表盘';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
